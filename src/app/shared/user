@@ -1,0 +1,11 @@
+import {FormStatus} from './form-status';
+
+export interface User extends FormStatus {
+  firstname: string;
+  lastname: string;
+  age: number;
+  email: string;
+  telephone: string;
+}
+
+

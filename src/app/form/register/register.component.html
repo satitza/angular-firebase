@@ -1,1 +1,27 @@
-<p>register works!</p>
+<label>
+  First name :
+  <input type="text" [(ngModel)]="userData.firstname"/>
+</label> <br><br>
+
+<label>
+  Last name :
+  <input type="text" [(ngModel)]="userData.lastname"/>
+</label> <br><br>
+
+<label>
+  Age :
+  <input type="text" [(ngModel)]="userData.age"/>
+</label> <br><br>
+
+<label>
+  E-mail :
+  <input type="text" [(ngModel)]="userData.email"/>
+</label> <br><br>
+
+<label>
+  Telephone :
+  <input type="text" [(ngModel)]="userData.telephone"/>
+</label> <br><br>
+<hr>
+<button (click)="saveData()">Save</button>
+

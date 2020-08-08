@@ -1,0 +1,6 @@
+export interface FormStatus {
+  createDate: string;
+  updateDate: string;
+  createBy: string;
+  status: string;
+}

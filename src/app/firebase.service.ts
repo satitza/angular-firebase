@@ -20,23 +20,58 @@ export class FirebaseService {
   // firebase ไม่ save ทับถ้า doc ชื่อซ้ำกัน
   createData(data: User) {
     return new Promise<any>((resolve, reject) => {
-
-      // tslint:disable-next-line:max-line-length
-      if (data.firstname === undefined || data.lastname === undefined || data.age === undefined || data.email === undefined || data.telephone === undefined) {
-        data.status = 'doing';
-      } else {
-        data.status = 'complete';
-      }
-
       data.createBy = 'Administrator';
       data.createDate = new Date();
-      this.firebase
-        .collection('user-information')
-        .doc(data.firstname)
-        .set(data)
-        .then(res => {
-        }, err => reject(err));
+      data.status = this.validateData(data);
+
+      if (data.firstname !== '' && data.firstname !== undefined) {
+        this.firebase
+          .collection('user-information')
+          .doc(data.firstname)
+          .set(data)
+          .then(res => {
+          }, err => reject(err));
+      } else {
+        alert('Invalid first name.');
+      }
     });
+  }
+
+  resetForm() {
+    this.userData = {
+      firstname: '',
+      lastname: '',
+      age: '',
+      email: '',
+      telephone: ''
+    };
+  }
+
+  validateData(data: User): string {
+
+    if (this.notUndefined(data) && this.notEmpty(data)) {
+      return 'complete';
+    } else {
+      return 'doing';
+    }
+  }
+
+  notUndefined(data: User): boolean {
+    // tslint:disable-next-line:max-line-length
+    if (data.firstname === undefined || data.lastname === undefined || data.age === undefined || data.email === undefined || data.telephone === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  notEmpty(data: User): boolean {
+    // tslint:disable-next-line:max-line-length
+    if (data.firstname === '' || data.lastname === '' || data.age === '' || data.email === '' || data.telephone === '') {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }

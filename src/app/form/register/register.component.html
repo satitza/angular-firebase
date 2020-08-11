@@ -1,27 +1,27 @@
 <label>
   First name :
-  <input type="text" [(ngModel)]="userData.firstname"/>
+  <input type="text" [(ngModel)]="firebaseService.userData.firstname"/>
 </label> <br><br>
 
 <label>
   Last name :
-  <input type="text" [(ngModel)]="userData.lastname"/>
+  <input type="text" [(ngModel)]="firebaseService.userData.lastname"/>
 </label> <br><br>
 
 <label>
   Age :
-  <input type="text" [(ngModel)]="userData.age"/>
+  <input type="text" [(ngModel)]="firebaseService.userData.age"/>
 </label> <br><br>
 
 <label>
   E-mail :
-  <input type="text" [(ngModel)]="userData.email"/>
+  <input type="text" [(ngModel)]="firebaseService.userData.email"/>
 </label> <br><br>
 
 <label>
   Telephone :
-  <input type="text" [(ngModel)]="userData.telephone"/>
+  <input type="text" [(ngModel)]="firebaseService.userData.telephone"/>
 </label> <br><br>
 <hr>
-<button (click)="saveData()">Save</button>
+<button (click)="firebaseService.createData(firebaseService.userData)">Save</button>
 

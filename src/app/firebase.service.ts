@@ -9,6 +9,7 @@ import {User} from './shared/user';
 export class FirebaseService {
 
   userData: User = {};
+  showError = false;
 
   constructor(private firebase: AngularFirestore) {
   }
@@ -30,9 +31,10 @@ export class FirebaseService {
           .doc(data.firstname)
           .set(data)
           .then(res => {
+            alert('create user data success.');
           }, err => reject(err));
       } else {
-        alert('Invalid first name.');
+        this.showError = true;
       }
     });
   }
@@ -45,6 +47,7 @@ export class FirebaseService {
       email: '',
       telephone: ''
     };
+    this.showError = false;
   }
 
   validateData(data: User): string {

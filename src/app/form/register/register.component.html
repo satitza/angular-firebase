@@ -1,6 +1,10 @@
 <label>
   First name :
   <input type="text" [(ngModel)]="firebaseService.userData.firstname"/>
+  <div *ngIf="firebaseService.showError"
+       style="color: red">
+    Invalid first name.
+  </div>
 </label> <br><br>
 
 <label>

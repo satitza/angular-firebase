@@ -4,7 +4,6 @@ import {RegisterComponent} from './register/register.component';
 import {FormRoutingModules} from './form-routing.modules';
 import {FormsModule} from '@angular/forms';
 
-
 @NgModule({
   declarations: [RegisterComponent],
   imports: [

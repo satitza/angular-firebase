@@ -8,6 +8,8 @@ import {environment} from '../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FormModule} from './form/form.module';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,13 @@ import {FormModule} from './form/form.module';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    })
   ],
   providers: [
     FormModule

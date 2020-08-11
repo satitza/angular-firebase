@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 // @ts-ignore
 import {User} from './shared/user';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class FirebaseService {
   userData: User = {};
   showError = false;
 
-  constructor(private firebase: AngularFirestore) {
+  constructor(private firebase: AngularFirestore, private toastrService: ToastrService) {
   }
 
   loadData(firstname: string) {
@@ -31,9 +32,10 @@ export class FirebaseService {
           .doc(data.firstname)
           .set(data)
           .then(res => {
-            alert('create user data success.');
+            this.toastrService.success('Save', 'Create user data success.');
           }, err => reject(err));
       } else {
+        this.toastrService.warning('Warring', 'Invalid first name');
         this.showError = true;
       }
     });

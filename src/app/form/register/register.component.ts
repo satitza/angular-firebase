@@ -12,7 +12,18 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(public firebaseService: FirebaseService) {
+  listUser: User[];
+
+  constructor(public firebaseService: FirebaseService, private toastrService: ToastrService) {
+    this.firebaseService.loadData().subscribe(actionArray => {
+      this.listUser = actionArray.map(item => {
+        return {
+          firstname: item.payload.doc.id,
+          // @ts-ignore
+          ...item.payload.doc.data()
+        } as User;
+      });
+    });
   }
 
   ngOnInit(): void {

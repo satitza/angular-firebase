@@ -15,8 +15,8 @@ export class FirebaseService {
   constructor(private firebase: AngularFirestore, private toastrService: ToastrService) {
   }
 
-  loadData(firstname: string) {
-    return this.firebase.collection('user-information').doc(firstname).snapshotChanges();
+  loadData() {
+    return this.firebase.collection('user-information').snapshotChanges();
   }
 
   // firebase ไม่ save ทับถ้า doc ชื่อซ้ำกัน

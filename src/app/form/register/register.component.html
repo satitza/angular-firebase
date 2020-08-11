@@ -29,4 +29,24 @@
 <hr>
 <button (click)="firebaseService.createData(firebaseService.userData)">Save</button>
 <button (click)="firebaseService.resetForm()">Reset</button>
+<br><br>
+<hr>
+<div *ngIf="listUser">
+  <table border="1">
+    <tr>
+      <td>First name</td>
+      <td>Last name</td>
+      <td>Age</td>
+      <td>E-mail</td>
+      <td>Telephone</td>
+    </tr>
+    <tr *ngFor="let user of listUser;let i = index">
+      <td>{{ user.firstname }}</td>
+      <td>{{ user.lastname }}</td>
+      <td>{{ user.age }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.telephone }}</td>
+    </tr>
+  </table>
+</div>
 

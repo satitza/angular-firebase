@@ -26,6 +26,11 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  rowSelected(selected: User) {
+    selected.updateDate = new Date();
+    this.firebaseService.userData = selected;
+  }
+
   ngOnInit(): void {
   }
 }

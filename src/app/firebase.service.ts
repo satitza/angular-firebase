@@ -23,7 +23,9 @@ export class FirebaseService {
   createData(data: User) {
     return new Promise<any>((resolve, reject) => {
       data.createBy = 'Administrator';
-      data.createDate = new Date();
+      if (data.updateDate === undefined) {
+        data.createDate = new Date();
+      }
       data.status = this.validateData(data);
 
       if (data.firstname !== '' && data.firstname !== undefined) {
@@ -39,6 +41,14 @@ export class FirebaseService {
         this.showError = true;
       }
     });
+  }
+
+  deleteData(data: User) {
+    if (confirm('Confirm delete user : ' + data.firstname)) {
+      this.firebase.collection('user-information').doc(data.firstname).delete().then(() => {
+        this.toastrService.success('Delete', 'Delete user : ' + data.firstname + ' success.');
+      });
+    }
   }
 
   resetForm() {

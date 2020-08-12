@@ -39,13 +39,23 @@
       <td>Age</td>
       <td>E-mail</td>
       <td>Telephone</td>
+      <td>Status</td>
+      <td>Create Date</td>
+      <td>Update Date</td>
+      <td>Delete</td>
     </tr>
     <tr *ngFor="let user of listUser;let i = index">
-      <td>{{ user.firstname }}</td>
-      <td>{{ user.lastname }}</td>
-      <td>{{ user.age }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.telephone }}</td>
+      <td (click)="rowSelected(user)">{{ user.firstname }}</td>
+      <td (click)="rowSelected(user)">{{ user.lastname }}</td>
+      <td (click)="rowSelected(user)">{{ user.age }}</td>
+      <td (click)="rowSelected(user)">{{ user.email }}</td>
+      <td (click)="rowSelected(user)">{{ user.telephone }}</td>
+      <td (click)="rowSelected(user)">{{ user.status }}</td>
+      <td (click)="rowSelected(user)">{{ user.createDate }}</td>
+      <td (click)="rowSelected(user)">{{ user.updateDate }}</td>
+      <td>
+        <button (click)="firebaseService.deleteData(user)">Delete</button>
+      </td>
     </tr>
   </table>
 </div>

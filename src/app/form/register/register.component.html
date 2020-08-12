@@ -28,33 +28,37 @@
 </label> <br><br>
 <hr>
 <button (click)="firebaseService.createData(firebaseService.userData)">Save</button>
-<button (click)="firebaseService.resetForm()">Reset</button>
+<button (click)="resetForm()">Reset</button>
 <br><br>
 <hr>
 <div *ngIf="listUser">
   <table border="1">
     <tr>
+      <td>Form ID</td>
       <td>First name</td>
       <td>Last name</td>
       <td>Age</td>
       <td>E-mail</td>
       <td>Telephone</td>
       <td>Status</td>
+      <td>Create By</td>
       <td>Create Date</td>
       <td>Update Date</td>
       <td>Delete</td>
     </tr>
     <tr *ngFor="let user of listUser;let i = index">
+      <td (click)="rowSelected(user)">{{ user.formId }}</td>
       <td (click)="rowSelected(user)">{{ user.firstname }}</td>
       <td (click)="rowSelected(user)">{{ user.lastname }}</td>
       <td (click)="rowSelected(user)">{{ user.age }}</td>
       <td (click)="rowSelected(user)">{{ user.email }}</td>
       <td (click)="rowSelected(user)">{{ user.telephone }}</td>
       <td (click)="rowSelected(user)">{{ user.status }}</td>
-      <td (click)="rowSelected(user)">{{ user.createDate }}</td>
-      <td (click)="rowSelected(user)">{{ user.updateDate }}</td>
+      <td (click)="rowSelected(user)">{{ user.createBy }}</td>
+      <td (click)="rowSelected(user)">{{ user.createDate | date: 'dd-MM-yyyy' }}</td>
+      <td (click)="rowSelected(user)">{{ user.updateDate | date :'dd-MM-yyyy' }}</td>
       <td>
-        <button (click)="firebaseService.deleteData(user)">Delete</button>
+        <button (click)="firebaseService.deleteData(user.formId)">Delete</button>
       </td>
     </tr>
   </table>

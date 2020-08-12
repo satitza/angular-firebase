@@ -24,18 +24,29 @@ export class FirebaseService {
     return new Promise<any>((resolve, reject) => {
       data.createBy = 'Administrator';
       if (data.updateDate === undefined) {
-        data.createDate = new Date();
+        data.createDate = new Date().toISOString();
       }
       data.status = this.validateData(data);
 
       if (data.firstname !== '' && data.firstname !== undefined) {
-        this.firebase
-          .collection('user-information')
-          .doc(data.firstname)
-          .set(data)
-          .then(res => {
-            this.toastrService.success('Save', 'Create user data success.');
-          }, err => reject(err));
+        if (data.formId === undefined) {
+          this.firebase
+            .collection('user-information')
+            /*.doc(data.firstname)*/
+            .add(data)
+            .then(res => {
+              this.toastrService.success('Save', 'Create user data success.');
+            }, err => reject(err));
+        } else {
+          this.firebase
+            .collection('user-information')
+            .doc(data.formId)
+            .update(data)
+            .then(res => {
+              this.toastrService.success('Update', 'Update user data success.');
+            }, err => reject(err));
+        }
+        this.resetForm();
       } else {
         this.toastrService.warning('Warring', 'Invalid first name');
         this.showError = true;
@@ -43,10 +54,11 @@ export class FirebaseService {
     });
   }
 
-  deleteData(data: User) {
-    if (confirm('Confirm delete user : ' + data.firstname)) {
-      this.firebase.collection('user-information').doc(data.firstname).delete().then(() => {
-        this.toastrService.success('Delete', 'Delete user : ' + data.firstname + ' success.');
+  deleteData(id: string) {
+    if (confirm('Confirm delete user')) {
+      this.firebase.collection('user-information').doc(id).delete().then(() => {
+        this.toastrService.success('Delete', 'Delete user success.');
+        this.resetForm();
       });
     }
   }

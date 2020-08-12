@@ -2,23 +2,25 @@ import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../../firebase.service';
 // @ts-ignore
 import {User} from '../../shared/user';
-import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  providers: [ToastrService]
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
   listUser: User[];
 
-  constructor(public firebaseService: FirebaseService, private toastrService: ToastrService) {
+  constructor(public firebaseService: FirebaseService) {
+    this.initialData();
+  }
+
+  initialData() {
     this.firebaseService.loadData().subscribe(actionArray => {
       this.listUser = actionArray.map(item => {
         return {
-          firstname: item.payload.doc.id,
+          formId: item.payload.doc.id,
           // @ts-ignore
           ...item.payload.doc.data()
         } as User;
@@ -27,8 +29,13 @@ export class RegisterComponent implements OnInit {
   }
 
   rowSelected(selected: User) {
-    selected.updateDate = new Date();
+    selected.updateDate = new Date().toISOString();
     this.firebaseService.userData = selected;
+  }
+
+  resetForm() {
+    this.firebaseService.resetForm();
+    this.initialData();
   }
 
   ngOnInit(): void {
